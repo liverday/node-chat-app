@@ -26,3 +26,12 @@ $('#messageForm').on('submit', function (e) {
         console.log('Got it');
     });
 })
+
+var locationButton = $('#sendLocation');
+
+locationButton.on('click', function() {
+    if (!navigator.geolocation) {
+        return alert('Geolocation not supported by your browser');
+    }
+    
+})
