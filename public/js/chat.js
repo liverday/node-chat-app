@@ -20,19 +20,25 @@ socket.on('connect', function () {
         if (err) {
             alert(err);
             window.location.href = '/';
-        } else { 
-            console.log('No error');
         }
-
     });
 });
 
 socket.on('disconnect', function () {
-    console.log('Disonnected from the server');
+});
+
+socket.on('updateUserList', function (users) {
+    var ol = $('<ol></ol>');
+
+    users.forEach( function(user) {
+        ol.append($('<li></li>').text(user));
+    });
+
+    $('#users').html(ol);
 });
 
 socket.on('newMessage', function (message) {
-    var formattedTime = moment(message.createdAt).format('hh:mm');
+    var formattedTime = moment(message.createdAt).format('HH:mm');
     var template = $('#messageTemplate').html();
     var html = Mustache.render(template, {
         text: message.text,
@@ -44,7 +50,7 @@ socket.on('newMessage', function (message) {
 });
 
 socket.on('newLocationMessage', function (message) {
-    var formattedTime = moment(message.createdAt).format('hh:mm');
+    var formattedTime = moment(message.createdAt).format('HH:mm');
     var template = $('#locationMessageTemplate').html();
     var html = Mustache.render(template, {
         url: message.url,
@@ -59,7 +65,6 @@ $('#messageForm').on('submit', function (e) {
     e.preventDefault();
     var messageBox = $('input[name=message]');
     socket.emit('createMessage', {
-        from: 'User',
         text: messageBox.val()
     }, function () {
         messageBox.val('');

@@ -13,7 +13,7 @@ describe('isRealString', () => {
         expect(res).toBe(false);
     });
 
-    it('should alow string with non-space characters', () => {
+    it('should allow string with non-space characters', () => {
         var res = isRealString('test');
         expect(res).toBe(true);
     })
