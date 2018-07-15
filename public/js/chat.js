@@ -30,7 +30,7 @@ socket.on('disconnect', function () {
 socket.on('updateUserList', function (users) {
     var ol = $('<ol></ol>');
 
-    users.forEach( function(user) {
+    users.forEach(function (user) {
         ol.append($('<li></li>').text(user));
     });
 
@@ -71,6 +71,10 @@ $('#messageForm').on('submit', function (e) {
     });
 
 
+});
+
+$('#returnButton').on('click', function () {
+    window.location.href = '/';
 })
 
 var locationButton = $('#sendLocation');
